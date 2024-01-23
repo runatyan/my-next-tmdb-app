@@ -3,5 +3,7 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
-  "/movies/[movieId]": "pages/movies/[movieId].js"
+  "/genres": "pages/genres.js",
+  "/movies/[movieId]": "pages/movies/[movieId].js",
+  "/anime/[animeId]": "pages/anime/[animeId].js"
 }

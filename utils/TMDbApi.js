@@ -7,12 +7,6 @@ const BASE_URL = "https://api.themoviedb.org/3";
 
 //新作
 export const fetchNowPlayingMovies = async () => {
-  // const response = await axios.get(
-  //   `${BASE_URL}/movie/now_playing?api_key=${API_KEY}&language=ja-JP`
-  // );
-  // const movies = response.data.results;
-  // return movies.filter((movie) => movie.title && movie.overview);
-
   let fetchedMovies = [];
   let page = 1;
   const maxPages = 5;
@@ -33,22 +27,42 @@ export const fetchNowPlayingMovies = async () => {
 
 //人気
 export const fetchPopularMovies = async () => {
-  const response = await axios.get(
-    `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=ja-JP`
-  );
-  const movies = response.data.results;
-  return movies.filter((movie) => movie.title && movie.overview);
+  let fetchedMovies = [];
+  let page = 1;
+  const maxPages = 5;
+
+  while (fetchedMovies.length < 20 && page <= maxPages) {
+    const response = await axios.get(
+      `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=ja-JP&page=${page}`
+    );
+    const filteredMovies = response.data.results.filter(
+      (movie) => movie.overview && movie.poster_path
+    );
+    fetchedMovies = [...fetchedMovies, ...filteredMovies].slice(0, 20);
+    page++;
+  }
+
+  return fetchedMovies;
 };
 
 //高評価
 export const fetchTopRatedMovies = async () => {
-  const response = await axios.get(
-    `${BASE_URL}/movie/top_rated?api_key=${API_KEY}&language=ja-JP`
-  );
+  let fetchedMovies = [];
+  let page = 1;
+  const maxPages = 5;
 
-  const movies = response.data.results;
+  while (fetchedMovies.length < 20 && page <= maxPages) {
+    const response = await axios.get(
+      `${BASE_URL}/movie/top_rated?api_key=${API_KEY}&language=ja-JP&page=${page}`
+    );
+    const filteredMovies = response.data.results.filter(
+      (movie) => movie.overview && movie.poster_path
+    );
+    fetchedMovies = [...fetchedMovies, ...filteredMovies].slice(0, 20);
+    page++;
+  }
 
-  return movies.filter((movie) => movie.title && movie.overview);
+  return fetchedMovies;
 };
 
 export const fetchMovieImages = async (movieId) => {

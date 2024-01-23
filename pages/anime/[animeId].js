@@ -267,7 +267,10 @@ const AnimeDetailsPage = () => {
     );
   };
 
-  console.log(anime);
+  const handleBackClick = () => {
+    // ブラウザの履歴を使用して一つ前のページに戻る
+    window.history.back();
+  };
 
   return (
     <div>
@@ -323,13 +326,19 @@ const AnimeDetailsPage = () => {
 
       <div className="w-11/12 mx-auto pt-10 sm:pt-16 md:pt-20 custom-lg:pt-64">
         <div className="mb-8">
-          {logoPath && (
+          <button onClick={handleBackClick}>戻る</button>
+          {logoPath ? (
             <img
               className="w-2/6 logo-pc mb-10"
               src={`https://image.tmdb.org/t/p/original${logoPath}`}
               alt="Movie Logo"
               onLoad={adjustImageSize}
             />
+          ) : (
+            // ロゴがない場合、タイトルを表示
+            <h1 className="text-2xl font-bold text-center mb-4 custom-lg:text-left custom-lg:mb-10">
+              {anime.name}
+            </h1>
           )}
 
           <p
@@ -346,7 +355,13 @@ const AnimeDetailsPage = () => {
             <p className="pr-3 mr-3 border-r  border-gray-500">
               {anime.first_air_date.split("-")[0]}
             </p>
-            <p>{anime.production_countries[0].name}</p>
+            {/* <p>{anime.production_countries[0].name}</p> */}
+            <p className="pr-2 mr-2 border-r border-gray-500">
+              {anime.production_countries &&
+              anime.production_countries.length > 0
+                ? anime.production_countries[0].name
+                : "not country"}
+            </p>
           </div>
 
           <div className="mb-8">
