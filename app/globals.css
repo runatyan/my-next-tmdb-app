@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* :root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+} */
+
+body {
+  background-color: #000;
+  color: #fff;
+}
+
+.catchImg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.catchImg::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: inset 0 0 10px 15px #000;
+}
+
+.catchImg img {
+  width: 100%;
+}
+
+.swiper-pagination-bullet {
+  background-color: #eee;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: white;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 999;
+  opacity: 1;
+  transform: translateY(0);
+  padding: 10px 0;
+}
+
+header.fade {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+iframe {
+  z-index: 999;
+}
+
+/* .header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: top 0.3s;
+  z-index: 999;
+}
+
+.header.fade {
+  top: -100%;
+} */
+
+.responsive-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logo-pc {
+  display: none;
+}
+
+@media screen and (min-width: 960px) {
+  .responsive-image {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: -10;
+  }
+
+  .responsive-image::after {
+    content: "";
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+
+    background-color: hsla(359, 100%, 50%, 0);
+    background-image: radial-gradient(
+        at 52% 99%,
+        hsla(222, 35%, 23%, 0.98) 0px,
+        transparent 50%
+      ),
+      radial-gradient(at 0% 47%, hsla(222, 35%, 23%, 0.98) 0px, transparent 50%),
+      radial-gradient(
+        at 74% 32%,
+        hsla(222, 35%, 35%, 0.14) 0px,
+        transparent 50%
+      ),
+      radial-gradient(at 1% 1%, hsla(222, 35%, 23%, 0.98) 0px, transparent 50%),
+      radial-gradient(
+        at 0% 100%,
+        hsla(222, 35%, 23%, 0.98) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 93% 100%,
+        hsla(222, 35%, 23%, 0.98) 0px,
+        transparent 50%
+      );
+
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .thumbnail__img {
+    height: 50vh;
+  }
+
+  .logo-mb {
+    display: none;
+  }
+
+  .logo-pc {
+    display: block;
+  }
+
+  .item__text {
+    width: 70%;
+  }
+
+  .header__logo {
+    width: 15%;
+  }
+}
