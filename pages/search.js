@@ -55,7 +55,7 @@ const GenrePage = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto mt-10 custom-lg:mt-14 pb-10">
+    <div className="w-11/12 mx-auto mt-14 md:mt-20 custom-lg:mt-20 pb-10">
       <form onSubmit={handleSearch} className="mb-10">
         <input
           type="text"

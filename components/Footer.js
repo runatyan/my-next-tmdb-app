@@ -14,7 +14,7 @@ const Footer = () => {
   const currentPath = router.pathname;
 
   // アクティブなアイコンのスタイル
-  const activeStyle = "text-white";
+  const activeStyle = "text-yellow-400";
   const inactiveStyle = "text-gray-400";
 
   return (

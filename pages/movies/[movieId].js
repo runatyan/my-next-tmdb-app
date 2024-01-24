@@ -180,7 +180,7 @@ const MovieDetailsPage = () => {
       <div>
         {genres.map((genre) => (
           <span
-            className="text-xs p-1 mr-1.5 rounded-sm border border-gray-500 text-gray-500 inline-block mb-0.5"
+            className="text-xs p-1 mr-1.5 rounded-sm border border-gray-500 text-gray-500 inline-block mb-0.5 custom-lg:border-gray-400 custom-lg:text-gray-400"
             key={genre.id}
           >
             {genre.name}
@@ -258,11 +258,6 @@ const MovieDetailsPage = () => {
     );
   };
 
-  const handleBackClick = () => {
-    // ブラウザの履歴を使用して一つ前のページに戻る
-    window.history.back();
-  };
-
   return (
     <div>
       <div
@@ -317,7 +312,6 @@ const MovieDetailsPage = () => {
 
       <div className="w-11/12 mx-auto pt-10 sm:pt-16 md:pt-20 custom-lg:pt-64">
         <div className="mb-8">
-          <button onClick={handleBackClick}>戻る</button>
           {logoPath ? (
             <img
               className="w-2/6 logo-pc mb-10"
@@ -339,17 +333,14 @@ const MovieDetailsPage = () => {
             {displayedOverview}
           </p>
 
-          <div className="flex mb-3 text-xs items-center text-gray-500 custom-lg:text-sm">
-            <div className="pr-2 mr-2 border-r  border-gray-500">
+          <div className="flex mb-3 text-xs items-center text-gray-500 custom-lg:text-sm custom-lg:text-gray-400">
+            <div className="pr-2 mr-2 border-r  border-gray-500 custom-lg:border-gray-400">
               <StarsRating rating={calculateRating(movie.vote_average)} />
             </div>
-            <p className="pr-2 mr-2 border-r  border-gray-500">
+            <p className="pr-2 mr-2 border-r  border-gray-500 custom-lg:border-gray-400">
               {movie.release_date.split("-")[0]}
             </p>
-            {/* <p className="pr-2 mr-2 border-r  border-gray-500">
-              {movie.production_countries[0].name}
-            </p> */}
-            <p className="pr-2 mr-2 border-r border-gray-500">
+            <p className="pr-2 mr-2 border-r border-gray-500 custom-lg:border-gray-400">
               {movie.production_countries &&
               movie.production_countries.length > 0
                 ? movie.production_countries[0].name
@@ -365,14 +356,14 @@ const MovieDetailsPage = () => {
           {hasSample ? (
             <button
               onClick={handleVideoClick}
-              className="bg-white text-black bold w-full p-3 rounded-md"
+              className="bg-white text-black bold w-full p-3 rounded-md custom-lg:w-1/4"
             >
               サンプルを視聴
             </button>
           ) : (
             <button
               disabled
-              className="bg-gray-200 text-black bold w-full p-3 rounded-md"
+              className="bg-gray-200 text-black bold w-full p-3 rounded-md custom-lg:w-1/4"
             >
               サンプルはありません
             </button>

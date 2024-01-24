@@ -12,7 +12,7 @@ const GenrePage = () => {
 
   const buttonStyle = (genre) => {
     return selectedGenre === genre
-      ? "bg-white text-black rounded-3xl w-16 p-1"
+      ? "bg-yellow-400 text-black rounded-3xl w-16 p-1"
       : "text-white p-1";
   };
 
@@ -62,7 +62,7 @@ const GenrePage = () => {
   }, [selectedGenre]);
 
   return (
-    <div className="w-11/12 mx-auto mt-10 custom-lg:mt-14 pb-10">
+    <div className="w-11/12 mx-auto mt-14  md:mt-20 custom-lg:mt-20 pb-10">
       <Swiper slidesPerView={5} className="mb-4">
         <SwiperSlide>
           <button

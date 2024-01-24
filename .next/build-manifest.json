@@ -39,11 +39,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/genres.js"
-    ],
-    "/movies/[movieId]": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/movies/[movieId].js"
     ]
   },
   "ampFirstPages": []
