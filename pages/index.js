@@ -94,7 +94,7 @@ const HomePage = () => {
   const renderAnimes = (animes) => {
     return animes.map((anime) => (
       <SwiperSlide key={anime.id}>
-        <Link href={`/anime/${anime.id}`} key={anime.id}>
+        <Link href={`/anime/${anime.id}`}>
           <div className="w-full mb-2 h-36 sm:h-44 mg:h-58 lg:h-64 xl:h-72 2xl-84">
             <img
               src={`https://image.tmdb.org/t/p/original${anime.poster_path}`}

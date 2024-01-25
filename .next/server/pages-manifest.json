@@ -2,7 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
   "/genres": "pages/genres.js",
-  "/anime/[animeId]": "pages/anime/[animeId].js"
+  "/": "pages/index.js",
+  "/search": "pages/search.js"
 }

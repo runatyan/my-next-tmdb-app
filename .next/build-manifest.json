@@ -30,15 +30,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/anime/[animeId]": [
+    "/search": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/anime/[animeId].js"
-    ],
-    "/genres": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/genres.js"
+      "static/chunks/pages/search.js"
     ]
   },
   "ampFirstPages": []
