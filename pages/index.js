@@ -16,6 +16,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "../app/globals.css";
+import { useRouter } from "next/router";
+import { useAuth } from "../context/AuthContext";
 
 const HomePage = () => {
   // 状態変数の設定
@@ -27,8 +29,21 @@ const HomePage = () => {
   const [dateAnimes, setDateAnimes] = useState([]);
   const [featuredMovies, setFeaturedMovies] = useState([]);
 
+  const { currentUser } = useAuth();
+  const router = useRouter();
+
   // 映画データの取得
   useEffect(() => {
+    if (currentUser === undefined) {
+      // currentUser が未定義の場合は何もしない（Firebaseからの応答待ち）
+      return;
+    }
+
+    if (!currentUser) {
+      router.push("/signin"); // ログインしていない場合はサインインページにリダイレクト
+      return;
+    }
+
     const fetchFeaturedMovies = async () => {
       const nowPlaying = await fetchNowPlayingMovies();
       const moviesWithImages = await Promise.all(
@@ -56,7 +71,7 @@ const HomePage = () => {
     fetchAverageAnimes().then(setAverageAnimes);
     fetchDateAnimes().then(setDateAnimes);
     fetchFeaturedMovies();
-  }, []);
+  }, [currentUser, router]);
 
   // 映画リストを表示する関数
   const renderMovies = (movies) => {
@@ -210,10 +225,37 @@ const HomePage = () => {
     },
   };
 
+  const useResponsiveSlides = () => {
+    const [slidesPerView, setSlidesPerView] = useState(1.2);
+
+    useEffect(() => {
+      const handleResize = () => {
+        if (window.innerWidth >= 960) {
+          setSlidesPerView(1.8);
+        } else {
+          setSlidesPerView(1.2);
+        }
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      // 初期設定
+      handleResize();
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }, []);
+
+    return slidesPerView;
+  };
+
+  const slidesPerView = useResponsiveSlides();
+
   return (
     <div>
       <Swiper
-        slidesPerView={1.8} // 1つのスライドが完全に見え、他のスライドが部分的に見えるように設定
+        slidesPerView={slidesPerView} // 1つのスライドが完全に見え、他のスライドが部分的に見えるように設定
         centeredSlides={true} // アクティブなスライドを中心に配置
         spaceBetween={20}
         modules={[Pagination]} //修正

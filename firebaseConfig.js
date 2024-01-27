@@ -1,14 +1,18 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
+// import firebase from "firebase/app";
+// import "firebase/auth";
+// import "firebase/firestore";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyC9NXoI46kdCvwRCr1z_6FmInYmZ_pjfbQ",
+  authDomain: "tmdbapi-ce065.firebaseapp.com",
+  projectId: "tmdbapi-ce065",
+  storageBucket: "tmdbapi-ce065.appspot.com",
+  messagingSenderId: "696276782922",
+  appId: "1:696276782922:web:adb13498207ccaec9fbbb3",
+  measurementId: "G-7GJ5YEJ8CD",
 };
 
 // Firebaseの初期化
