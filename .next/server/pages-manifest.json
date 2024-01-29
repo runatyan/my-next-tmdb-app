@@ -2,10 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/genres": "pages/genres.js",
-  "/movies/[movieId]": "pages/movies/[movieId].js",
-  "/search": "pages/search.js",
+  "/signin": "pages/signin.js",
   "/": "pages/index.js",
-  "/profile": "pages/profile.js",
-  "/signin": "pages/signin.js"
+  "/signup": "pages/signup.js",
+  "/genres": "pages/genres.js",
+  "/search": "pages/search.js"
 }

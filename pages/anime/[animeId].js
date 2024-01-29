@@ -92,12 +92,6 @@ const AnimeDetailsPage = () => {
     setIsOverviewExpanded(!isOverviewExpanded);
   };
 
-  // 概要の表示ロジック
-  // const displayedOverview =
-  //   anime && (isOverviewExpanded || anime.overview.length <= 80)
-  //     ? anime.overview
-  //     : anime && `${anime.overview.substring(0, 80)}...`;
-
   const displayedOverview = anime
     ? anime.overview
       ? isOverviewExpanded || anime.overview.length <= 80
@@ -272,8 +266,8 @@ const AnimeDetailsPage = () => {
       <div
         style={{
           position: "relative",
-          width: "100%", // 画像の幅
-          height: "100%", // 画像の高さ
+          width: "100%",
+          height: "100%",
         }}
       >
         <div className="responsive-image">
@@ -365,14 +359,14 @@ const AnimeDetailsPage = () => {
           {hasSample ? (
             <button
               onClick={handleVideoClick}
-              className="bg-white text-black bold w-full p-3 rounded-md custom-lg:w-1/4"
+              className="bg-white text-black bold w-full p-3 rounded-md custom-lg:w-1/4  hover:bg-transparent hover:text-white hover:border hover:border-white"
             >
               サンプルを視聴
             </button>
           ) : (
             <button
               disabled
-              className="bg-gray-200 text-black bold w-full p-3 rounded-md custom-lg:w-1/4"
+              className="bg-gray-400 text-black bold w-full p-3 rounded-md custom-lg:w-1/4"
             >
               サンプルはありません
             </button>

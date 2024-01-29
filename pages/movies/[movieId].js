@@ -356,14 +356,14 @@ const MovieDetailsPage = () => {
           {hasSample ? (
             <button
               onClick={handleVideoClick}
-              className="bg-white text-black bold w-full p-3 rounded-md custom-lg:w-1/4"
+              className="bg-white text-black bold w-full p-3 rounded-md custom-lg:w-1/4 hover:bg-transparent hover:text-white hover:border hover:border-white"
             >
               サンプルを視聴
             </button>
           ) : (
             <button
               disabled
-              className="bg-gray-200 text-black bold w-full p-3 rounded-md custom-lg:w-1/4"
+              className="bg-gray-400 text-black bold w-full p-3 rounded-md custom-lg:w-1/4"
             >
               サンプルはありません
             </button>

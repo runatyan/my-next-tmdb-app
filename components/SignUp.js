@@ -23,13 +23,12 @@ const SignUp = () => {
 
   return (
     <div className="w-11/12 mx-auto mt-20 pb-10">
-      <img className="w-2/6 mx-auto mb-16" src="/logo.svg" />
-      <Link href="/signin">
-        <p className="text-sm mb-10 border-b border-white inline-block">
-          ＜ ログインページに戻る
-        </p>
-      </Link>
-      <form onSubmit={handleSignUp}>
+      <img className="w-2/6 custom-lg:w-1/5 mx-auto mb-16" src="/logo.svg" />
+
+      <form
+        onSubmit={handleSignUp}
+        className="custom-lg:w-7/12 custom-lg:mx-auto custom-lg:block"
+      >
         <input
           type="email"
           value={email}
@@ -38,7 +37,7 @@ const SignUp = () => {
           style={{
             color: "#000",
           }}
-          className="w-full p-3 mb-5"
+          className="w-full p-3 mb-5 custom-lg:w-1/2 custom-lg:mx-auto custom-lg:block"
         />
         <input
           type="password"
@@ -48,12 +47,25 @@ const SignUp = () => {
           style={{
             color: "#000",
           }}
-          className="w-full p-3 mb-5"
+          className="w-full p-3 mb-5 custom-lg:w-1/2 custom-lg:mx-auto custom-lg:block"
         />
-        <button className="w-full p-3 bg-yellow-400 text-black" type="submit">
+        <button
+          className="w-full p-3 custom-lg:w-1/2 custom-lg:mx-auto custom-lg:block bg-yellow-400 text-black hover:bg-black hover:text-yellow-400 hover:border hover:border-yellow-400"
+          type="submit"
+        >
           新規登録
         </button>
       </form>
+      <div className=" mt-10 custom-lg:w-7/12 custom-lg:mx-auto custom-lg:block">
+        <Link
+          className="custom-lg:w-1/2 custom-lg:mx-auto custom-lg:block"
+          href="/signin"
+        >
+          <p className="text-sm border-b border-white inline-block">
+            ＜ ログインページに戻る
+          </p>
+        </Link>
+      </div>
     </div>
   );
 };

@@ -1,23 +1,23 @@
-// hooks/useAuth.js
+// // hooks/useAuth.js
 
-import { useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebaseConfig"; // Firebase設定ファイルをインポート
+// import { useState, useEffect } from "react";
+// import { onAuthStateChanged } from "firebase/auth";
+// import { auth } from "../firebaseConfig"; // Firebase設定ファイルをインポート
 
-const useAuth = () => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+// const useAuth = () => {
+//   const [currentUser, setCurrentUser] = useState(null);
+//   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-      setLoading(false);
-    });
+//   useEffect(() => {
+//     const unsubscribe = auth.onAuthStateChanged((user) => {
+//       setCurrentUser(user);
+//       setLoading(false);
+//     });
 
-    return unsubscribe;
-  }, []);
+//     return unsubscribe;
+//   }, []);
 
-  return { currentUser, loading };
-};
+//   return { currentUser, loading };
+// };
 
-export default useAuth;
+// export default useAuth;
