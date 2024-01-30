@@ -1,4 +1,4 @@
-//pages/movies/[movieId].js
+//pages/animes/[animeId].js
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
@@ -14,9 +14,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as fullStar } from "@fortawesome/free-solid-svg-icons";
 import { faStarHalfStroke as halfStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as emptyStar } from "@fortawesome/free-regular-svg-icons";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { useAuth } from "../../context/AuthContext";
+import { firestore } from "../../firebaseConfig";
 
 const AnimeDetailsPage = () => {
   const [anime, setAnime] = useState(null);
@@ -29,6 +30,8 @@ const AnimeDetailsPage = () => {
   const [isOverviewExpanded, setIsOverviewExpanded] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
   const [latestAnimes, setLatestAnimes] = useState([]);
+  const { currentUser } = useAuth();
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   useEffect(() => {
     const fetchAnimeDetails = async (animeId) => {
@@ -80,12 +83,26 @@ const AnimeDetailsPage = () => {
       }
     };
 
+    const checkIfBookmarked = async () => {
+      if (currentUser && animeId) {
+        const bookmarkDoc = await firestore
+          .collection("bookmarks")
+          .doc(currentUser.uid)
+          .get();
+        if (bookmarkDoc.exists) {
+          const bookmarks = bookmarkDoc.data().bookmarks || [];
+          setIsBookmarked(bookmarks.some((b) => b.id === animeId));
+        }
+      }
+    };
+
     fetchRecommendations();
 
     fetchVideos();
 
     fetchData();
     fetchNowPlayingAnimes().then(setLatestAnimes);
+    checkIfBookmarked();
   }, [animeId]);
 
   const toggleOverview = () => {
@@ -104,7 +121,12 @@ const AnimeDetailsPage = () => {
     setIsVideoFullScreen(true);
   };
 
-  if (!anime) return <div>Loading...</div>;
+  if (!anime)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p>Loading...</p>
+      </div>
+    );
 
   const getPreferredLogo = (images) => {
     // 日本語のロゴを検索
@@ -234,7 +256,6 @@ const AnimeDetailsPage = () => {
 
   const getDirector = () => {
     if (!animeCredits || !animeCredits.crew) return null;
-    console.log(animeCredits);
 
     const directors = animeCredits.crew.filter(
       (member) => member.job === "Director"
@@ -259,6 +280,42 @@ const AnimeDetailsPage = () => {
         ))}
       </div>
     );
+  };
+
+  const handleBookmark = async (animeId) => {
+    if (currentUser) {
+      const bookmarkRef = firestore
+        .collection("bookmarks")
+        .doc(currentUser.uid);
+      const timestamp = new Date(); // 現在のタイムスタンプ
+
+      // 既存のブックマークを取得
+      const bookmarkDoc = await bookmarkRef.get();
+      let bookmarks = bookmarkDoc.exists
+        ? bookmarkDoc.data().bookmarks || []
+        : [];
+
+      // ブックマークが既に存在するかチェック
+      const existingBookmark = bookmarks.find((b) => b.id === animeId);
+
+      if (existingBookmark) {
+        // ブックマークが存在する場合は削除
+        bookmarks = bookmarks.filter((b) => b.id !== animeId);
+        setIsBookmarked(false);
+      } else {
+        // 新しいブックマークを追加
+        const newBookmark = {
+          id: animeId,
+          timestamp: timestamp.toISOString(),
+          type: "anime",
+        };
+        bookmarks.push(newBookmark);
+        setIsBookmarked(true);
+      }
+
+      // Firestoreに保存
+      await bookmarkRef.set({ bookmarks }, { merge: true });
+    }
   };
 
   return (
@@ -355,22 +412,29 @@ const AnimeDetailsPage = () => {
           <div className="mb-8">
             {anime && <Genres genres={anime.genres} />}
           </div>
-
-          {hasSample ? (
+          <div className="custom-lg:flex custom-lg:flex-wrap custom-lg:items-center">
+            {hasSample ? (
+              <button
+                onClick={handleVideoClick}
+                className="bg-white text-black bold w-full p-3 rounded-md custom-lg:w-1/4  hover:bg-transparent hover:text-white hover:border hover:border-white mb-5 custom-lg:mb-0 custom-lg:mr-4"
+              >
+                サンプルを視聴
+              </button>
+            ) : (
+              <button
+                disabled
+                className="bg-gray-400 text-black bold w-full p-3 rounded-md custom-lg:w-1/4 mb-5 custom-lg:mb-0 custom-lg:mr-4"
+              >
+                サンプルはありません
+              </button>
+            )}
             <button
-              onClick={handleVideoClick}
               className="bg-white text-black bold w-full p-3 rounded-md custom-lg:w-1/4  hover:bg-transparent hover:text-white hover:border hover:border-white"
+              onClick={() => handleBookmark(animeId)}
             >
-              サンプルを視聴
+              {isBookmarked ? "ブックマーク済み" : "ブックマークする"}
             </button>
-          ) : (
-            <button
-              disabled
-              className="bg-gray-400 text-black bold w-full p-3 rounded-md custom-lg:w-1/4"
-            >
-              サンプルはありません
-            </button>
-          )}
+          </div>
         </div>
       </div>
 

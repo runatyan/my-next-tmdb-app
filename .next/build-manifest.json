@@ -30,15 +30,25 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/genres": [
+    "/bookmarks": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/genres.js"
+      "static/chunks/pages/bookmarks.js"
     ],
-    "/search": [
+    "/movies/[movieId]": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/search.js"
+      "static/chunks/pages/movies/[movieId].js"
+    ],
+    "/profile": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/profile.js"
+    ],
+    "/signin": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/signin.js"
     ],
     "/signup": [
       "static/chunks/webpack.js",

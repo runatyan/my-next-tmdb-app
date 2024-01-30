@@ -14,9 +14,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as fullStar } from "@fortawesome/free-solid-svg-icons";
 import { faStarHalfStroke as halfStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as emptyStar } from "@fortawesome/free-regular-svg-icons";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { useAuth } from "../../context/AuthContext";
+import { firestore } from "../../firebaseConfig";
 
 const MovieDetailsPage = () => {
   const [movie, setMovie] = useState(null);
@@ -29,6 +30,8 @@ const MovieDetailsPage = () => {
   const [isOverviewExpanded, setIsOverviewExpanded] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
   const [latestMovies, setLatestMovies] = useState([]);
+  const { currentUser } = useAuth();
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   useEffect(() => {
     const fetchMovieDetails = async (movieId) => {
@@ -80,12 +83,26 @@ const MovieDetailsPage = () => {
       }
     };
 
+    const checkIfBookmarked = async () => {
+      if (currentUser && movieId) {
+        const bookmarkDoc = await firestore
+          .collection("bookmarks")
+          .doc(currentUser.uid)
+          .get();
+        if (bookmarkDoc.exists) {
+          const bookmarks = bookmarkDoc.data().bookmarks || [];
+          setIsBookmarked(bookmarks.some((b) => b.id === movieId));
+        }
+      }
+    };
+
     fetchRecommendations();
 
     fetchVideos();
 
     fetchData();
     fetchNowPlayingMovies().then(setLatestMovies);
+    checkIfBookmarked();
   }, [movieId]);
 
   const toggleOverview = () => {
@@ -104,7 +121,12 @@ const MovieDetailsPage = () => {
     setIsVideoFullScreen(true);
   };
 
-  if (!movie) return <div>Loading...</div>;
+  if (!movie)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p>Loading...</p>
+      </div>
+    );
 
   const getPreferredLogo = (images) => {
     // 日本語のロゴを検索
@@ -258,6 +280,46 @@ const MovieDetailsPage = () => {
     );
   };
 
+  const handleBookmark = async (movieId) => {
+    if (currentUser) {
+      const bookmarkRef = firestore
+        .collection("bookmarks")
+        .doc(currentUser.uid);
+      const timestamp = new Date(); // 現在のタイムスタンプ
+
+      // 既存のブックマークを取得
+      const bookmarkDoc = await bookmarkRef.get();
+      let bookmarks = bookmarkDoc.exists
+        ? bookmarkDoc.data().bookmarks || []
+        : [];
+
+      // ブックマークが既に存在するかチェック
+      const existingBookmark = bookmarks.find((b) => b.id === movieId);
+
+      if (existingBookmark) {
+        // ブックマークが存在する場合は削除
+        bookmarks = bookmarks.filter((b) => b.id !== movieId);
+        setIsBookmarked(false);
+      } else {
+        // 新しいブックマークを追加
+        const newBookmark = {
+          id: movieId,
+          timestamp: timestamp.toISOString(),
+          type: "movie",
+        };
+        bookmarks.push(newBookmark);
+        setIsBookmarked(true);
+      }
+
+      // Firestoreに保存
+      await bookmarkRef.set({ bookmarks }, { merge: true });
+    }
+  };
+
+  const handleBookmarkClick = () => {
+    handleBookmark(movieId);
+  };
+
   return (
     <div>
       <div
@@ -353,21 +415,29 @@ const MovieDetailsPage = () => {
             {movie && <Genres genres={movie.genres} />}
           </div>
 
-          {hasSample ? (
+          <div className="custom-lg:flex custom-lg:flex-wrap custom-lg:items-center">
+            {hasSample ? (
+              <button
+                onClick={handleVideoClick}
+                className="bg-white text-black bold w-full p-3 rounded-md custom-lg:w-1/4 hover:bg-transparent hover:text-white hover:border hover:border-white mb-5 custom-lg:mb-0 custom-lg:mr-4"
+              >
+                サンプルを視聴
+              </button>
+            ) : (
+              <button
+                disabled
+                className="bg-gray-400 text-black bold w-full p-3 rounded-md custom-lg:w-1/4 mb-5 custom-lg:mb-0 custom-lg:mr-4"
+              >
+                サンプルはありません
+              </button>
+            )}
             <button
-              onClick={handleVideoClick}
-              className="bg-white text-black bold w-full p-3 rounded-md custom-lg:w-1/4 hover:bg-transparent hover:text-white hover:border hover:border-white"
+              className="bg-white text-black bold w-full p-3 rounded-md custom-lg:w-1/4  hover:bg-transparent hover:text-white hover:border hover:border-white"
+              onClick={handleBookmarkClick}
             >
-              サンプルを視聴
+              {isBookmarked ? "ブックマーク済み" : "ブックマークする"}
             </button>
-          ) : (
-            <button
-              disabled
-              className="bg-gray-400 text-black bold w-full p-3 rounded-md custom-lg:w-1/4"
-            >
-              サンプルはありません
-            </button>
-          )}
+          </div>
         </div>
       </div>
 
