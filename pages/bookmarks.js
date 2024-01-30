@@ -54,7 +54,7 @@ const BookmarksPage = () => {
   return (
     <div className="w-11/12 mx-auto mt-14 md:mt-20 custom-lg:mt-20 pb-10">
       {/* ブックマークのデータをマッピングして表示 */}
-      <div className="flex flex-wrap justify-between">
+      <div className="flex flex-wrap justify-between bookmark-last">
         {bookmarks.map((bookmark, index) => (
           <div key={index} style={{ width: "30%" }}>
             <Link

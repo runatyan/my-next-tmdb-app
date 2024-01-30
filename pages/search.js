@@ -110,7 +110,7 @@ const GenrePage = () => {
       ) : (
         <div className="popular-movies">
           <h2 className="mb-3">上位の検索結果</h2>
-          <div className="flex flex-wrap justify-between">
+          <div className="flex flex-wrap justify-between search-last">
             {popularMovies.map((movie, index) => (
               <div key={index} style={{ width: "30%" }}>
                 <Link href={`/movies/${movie.id}`}>

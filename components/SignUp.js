@@ -43,7 +43,7 @@ const SignUp = () => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="6〜20文字以内の半角英数字"
+          placeholder="6〜20文字以内の半角英数字のパスワード"
           style={{
             color: "#000",
           }}

@@ -99,6 +99,13 @@ iframe {
   border-radius: 10px;
 }
 
+.bookmark-last::after,
+.search-last::after {
+  content: "";
+  width: 30%;
+  display: block;
+}
+
 @media screen and (min-width: 960px) {
   .responsive-image {
     position: fixed;
