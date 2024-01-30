@@ -10,6 +10,7 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const router = useRouter();
 
   const handleSignIn = async (e) => {
@@ -18,6 +19,23 @@ const SignIn = () => {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/"); // ログイン後のリダイレクト先
     } catch (error) {
+      switch (error.code) {
+        case "auth/invalid-email":
+          setError("メールアドレスの形式が正しくありません。");
+          break;
+        case "auth/user-disabled":
+          setError("このユーザーは無効です。");
+          break;
+        case "auth/user-not-found":
+          setError("ユーザーが見つかりません。");
+          break;
+        case "auth/wrong-password":
+          setError("パスワードが間違っています。");
+          break;
+        default:
+          setError("ログインに失敗しました。もう一度お試しください。");
+          break;
+      }
       console.error(error.message);
     }
   };
@@ -37,6 +55,13 @@ const SignIn = () => {
   return (
     <div className="w-11/12 mx-auto mt-20 pb-10">
       <img className="w-2/6 custom-lg:w-1/5 mx-auto mb-16" src="/logo.svg" />
+      <div className="custom-lg:w-7/12 custom-lg:mx-auto custom-lg:block">
+        {error && (
+          <p className="text-red-500  mb-1 custom-lg:w-1/2 custom-lg:mx-auto custom-lg:block">
+            {error}
+          </p>
+        )}
+      </div>
       <div className="pb-7 mb-7 custom-lg:pb-9 custom-lg:mb-9 custom-lg:w-7/12 custom-lg:mx-auto custom-lg:block border-b border-yellow-400 ">
         <form onSubmit={handleSignIn} className="mb-5">
           <input

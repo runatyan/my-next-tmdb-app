@@ -9,6 +9,7 @@ import Link from "next/link";
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const router = useRouter();
 
   const handleSignUp = async (e) => {
@@ -17,6 +18,11 @@ const SignUp = () => {
       await createUserWithEmailAndPassword(auth, email, password);
       router.push("/signin"); // 登録後のリダイレクト先
     } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        setError("このメールアドレスは既に使用されています。");
+      } else {
+        setError("アカウントの作成に失敗しました。");
+      }
       console.error(error.message);
     }
   };
@@ -25,6 +31,13 @@ const SignUp = () => {
     <div className="w-11/12 mx-auto mt-20 pb-10">
       <img className="w-2/6 custom-lg:w-1/5 mx-auto mb-16" src="/logo.svg" />
 
+      <div className="custom-lg:w-7/12 custom-lg:mx-auto custom-lg:block">
+        {error && (
+          <p className="text-red-500  mb-1 custom-lg:w-1/2 custom-lg:mx-auto custom-lg:block">
+            {error}
+          </p>
+        )}
+      </div>
       <form
         onSubmit={handleSignUp}
         className="custom-lg:w-7/12 custom-lg:mx-auto custom-lg:block"
