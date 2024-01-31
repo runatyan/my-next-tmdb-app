@@ -56,7 +56,7 @@ const Header = () => {
         {!isDetailPage ? (
           <Link href="/">
             <img
-              className="w-1/3 custom-lg:w-5/12 header__logo"
+              className="w-1/2 custom-lg:w-5/12 header__logo"
               src="/logo.svg"
             />
           </Link>
