@@ -23,6 +23,9 @@ const Header = () => {
     router.pathname.includes("/anime/") ||
     router.pathname.includes("/profile");
 
+  const isDetailPageShera =
+    router.pathname.includes("/movies/") || router.pathname.includes("/anime/");
+
   // シェアボタンのイベントハンドラ
   const handleShare = async () => {
     // シェアのロジックをここに実装します
@@ -69,7 +72,7 @@ const Header = () => {
         )}
 
         <div className="flex items-center">
-          {isDetailPage && (
+          {isDetailPageShera && (
             <button onClick={handleShare} className="mr-4 custom-lg:mr-8">
               <FontAwesomeIcon
                 icon={faArrowUpFromBracket}

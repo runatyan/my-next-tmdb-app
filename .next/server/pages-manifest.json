@@ -1,1 +1,9 @@
-{}
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/profile": "pages/profile.js",
+  "/": "pages/index.js",
+  "/movies/[movieId]": "pages/movies/[movieId].js",
+  "/anime/[animeId]": "pages/anime/[animeId].js"
+}
