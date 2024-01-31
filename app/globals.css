@@ -114,6 +114,10 @@ iframe {
   background: #fbbf24 !important; /* アクティブな点の色 */
 }
 
+.shadow {
+  background: linear-gradient(to right, transparent, black);
+}
+
 @media screen and (min-width: 960px) {
   .responsive-image {
     position: fixed;
@@ -180,5 +184,9 @@ iframe {
 
   .modal {
     width: 30%;
+  }
+
+  .header {
+    padding: 20px 0;
   }
 }

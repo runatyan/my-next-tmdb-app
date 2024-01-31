@@ -497,15 +497,15 @@ const MovieDetailsPage = () => {
                   spaceBetween: 10,
                 },
                 1024: {
-                  slidesPerView: 7,
+                  slidesPerView: 7.1,
                   spaceBetween: 10,
                 },
                 1280: {
-                  slidesPerView: 7,
+                  slidesPerView: 7.1,
                   spaceBetween: 10,
                 },
                 1700: {
-                  slidesPerView: 8,
+                  slidesPerView: 8.1,
                   spaceBetween: 10,
                 },
                 1900: {
@@ -513,7 +513,7 @@ const MovieDetailsPage = () => {
                   spaceBetween: 10,
                 },
                 2000: {
-                  slidesPerView: 9,
+                  slidesPerView: 9.1,
                   spaceBetween: 10,
                 },
               }}

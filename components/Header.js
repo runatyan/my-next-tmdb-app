@@ -26,6 +26,15 @@ const Header = () => {
   const isDetailPageShera =
     router.pathname.includes("/movies/") || router.pathname.includes("/anime/");
 
+  const handleShareFallback = () => {
+    const shareURL = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+      window.location.href
+    )}&text=${encodeURIComponent(document.title)}`;
+
+    // 新しいウィンドウでSNSのシェアページを開く
+    window.open(shareURL, "_blank", "noopener,noreferrer");
+  };
+
   // シェアボタンのイベントハンドラ
   const handleShare = async () => {
     // シェアのロジックをここに実装します
@@ -46,6 +55,7 @@ const Header = () => {
     } else {
       // Web Share APIが利用できない場合のフォールバック
       console.log("Web Share APIはこのブラウザでは利用できません。");
+      handleShareFallback();
     }
   };
 

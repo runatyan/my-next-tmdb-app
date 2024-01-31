@@ -169,15 +169,15 @@ const HomePage = () => {
       spaceBetween: 10,
     },
     1024: {
-      slidesPerView: 7,
+      slidesPerView: 7.1,
       spaceBetween: 10,
     },
     1700: {
-      slidesPerView: 8,
+      slidesPerView: 8.1,
       spaceBetween: 10,
     },
     2000: {
-      slidesPerView: 9,
+      slidesPerView: 9.1,
       spaceBetween: 10,
     },
   };
@@ -265,7 +265,8 @@ const HomePage = () => {
       >
         {renderFeaturedMovies()}
       </Swiper>
-      <div className="w-11/12 mx-auto mt-5 pb-10">
+      <div className="w-11/12 mx-auto mt-5 pb-10 relative">
+        <div className="absolute w-5 custom-lg:w-10 bg-black right-0 top-0 z-50 h-full shadow "></div>
         <h2 className="text-sm sm:text-xl my-3 font-bold tracking-wider">
           新作映画
         </h2>
