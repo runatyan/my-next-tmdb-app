@@ -138,8 +138,11 @@ const Header = () => {
 
         <div className="flex items-center">
           {isDetailPage && (
-            <button onClick={handleShare} className="mr-4">
-              <FontAwesomeIcon icon={faArrowUpFromBracket} size="lg" />
+            <button onClick={handleShare} className="mr-4 custom-lg:mr-8">
+              <FontAwesomeIcon
+                icon={faArrowUpFromBracket}
+                className="text-lg custom-lg:text-2xl"
+              />
             </button>
           )}
           <div className="relative">
@@ -147,7 +150,7 @@ const Header = () => {
               <button onClick={goToProfile}>
                 <FontAwesomeIcon
                   icon={faUser}
-                  className="text-lg custom-lg:text-3xl hover:text-yellow-400"
+                  className="text-lg custom-lg:text-2xl hover:text-yellow-400"
                 />
               </button>
             ) : (
