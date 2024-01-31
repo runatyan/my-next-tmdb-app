@@ -106,6 +106,14 @@ iframe {
   display: block;
 }
 
+.swiper-pagination-bullet {
+  background: #fff !important; /* 通常の点の色 */
+}
+
+.swiper-pagination-bullet-active {
+  background: #fbbf24 !important; /* アクティブな点の色 */
+}
+
 @media screen and (min-width: 960px) {
   .responsive-image {
     position: fixed;
