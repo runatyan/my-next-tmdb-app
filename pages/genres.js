@@ -13,7 +13,7 @@ const GenrePage = () => {
 
   const buttonStyle = (genre) => {
     return selectedGenre === genre
-      ? "bg-yellow-400 text-black rounded-3xl w-16 p-1"
+      ? "bg-yellow-400 text-black rounded-3xl p-1 btn-ac "
       : "text-white p-1";
   };
 
@@ -36,6 +36,15 @@ const GenrePage = () => {
           case "tv":
             url = `${BASE_URL}/tv?api_key=${API_KEY}&language=ja-JP&page=${page}`;
             break;
+          case "comedy":
+            url = `${BASE_URL}/movie?api_key=${API_KEY}&language=ja-JP&with_genres=35&page=${page}`;
+            break;
+          case "romance":
+            url = `${BASE_URL}/movie?api_key=${API_KEY}&language=ja-JP&with_genres=10749&page=${page}`;
+            break;
+          case "sci-fi":
+            url = `${BASE_URL}/movie?api_key=${API_KEY}&language=ja-JP&with_genres=878&page=${page}`;
+            break;
         }
 
         try {
@@ -50,7 +59,7 @@ const GenrePage = () => {
           );
         } catch (error) {
           console.error("Error fetching content:", error);
-          break; // エラーが発生した場合はループを中断
+          break;
         }
 
         page++;
@@ -62,9 +71,35 @@ const GenrePage = () => {
     fetchContent();
   }, [selectedGenre]);
 
+  const useResponsiveSlides = () => {
+    const [slidesPerView, setSlidesPerView] = useState(1.2);
+
+    useEffect(() => {
+      const handleResize = () => {
+        if (window.innerWidth >= 960) {
+          setSlidesPerView(6);
+        } else {
+          setSlidesPerView(4.4);
+        }
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      handleResize();
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }, []);
+
+    return slidesPerView;
+  };
+
+  const slidesPerView = useResponsiveSlides();
+
   return (
     <div className="w-11/12 mx-auto mt-14  md:mt-20 custom-lg:mt-20 pb-10">
-      <Swiper slidesPerView={5} className="mb-4">
+      <Swiper slidesPerView={slidesPerView} className="mb-4">
         <SwiperSlide>
           <button
             onClick={() => setSelectedGenre("movies")}
@@ -87,6 +122,30 @@ const GenrePage = () => {
             className={buttonStyle("tv")}
           >
             TV番組
+          </button>
+        </SwiperSlide>
+        <SwiperSlide>
+          <button
+            onClick={() => setSelectedGenre("sci-fi")}
+            className={buttonStyle("sci-fi")}
+          >
+            SF
+          </button>
+        </SwiperSlide>
+        <SwiperSlide>
+          <button
+            onClick={() => setSelectedGenre("comedy")}
+            className={buttonStyle("comedy")}
+          >
+            コメディ
+          </button>
+        </SwiperSlide>
+        <SwiperSlide>
+          <button
+            onClick={() => setSelectedGenre("romance")}
+            className={buttonStyle("romance")}
+          >
+            恋愛
           </button>
         </SwiperSlide>
       </Swiper>

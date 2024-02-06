@@ -118,6 +118,10 @@ iframe {
   background: linear-gradient(to right, transparent, black);
 }
 
+.btn-ac {
+  min-width: 4rem;
+}
+
 @media screen and (min-width: 960px) {
   .responsive-image {
     position: fixed;

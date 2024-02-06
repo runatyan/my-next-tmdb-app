@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faArrowUpFromBracket,
+  faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
@@ -76,7 +77,7 @@ const Header = () => {
         ) : (
           <>
             <button className="text-2xl" onClick={() => router.back()}>
-              ＜
+              <FontAwesomeIcon icon={faChevronLeft} className="text-2xl" />
             </button>
           </>
         )}

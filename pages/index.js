@@ -239,7 +239,6 @@ const HomePage = () => {
 
       window.addEventListener("resize", handleResize);
 
-      // 初期設定
       handleResize();
 
       return () => {

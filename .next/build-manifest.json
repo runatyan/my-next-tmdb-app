@@ -30,15 +30,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/anime/[animeId]": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/anime/[animeId].js"
-    ],
     "/movies/[movieId]": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/movies/[movieId].js"
+    ],
+    "/search": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/search.js"
     ]
   },
   "ampFirstPages": []
