@@ -172,3 +172,62 @@ export const fetchNowPlayingAnimes = async () => {
 
   return fetchedAnimes;
 };
+
+/************ */
+
+export const fetchCurrentlyAiringTVShows = async () => {
+  let fetchedTVShows = [];
+  let page = 1;
+  const maxPages = 6;
+
+  while (fetchedTVShows.length < 20 && page <= maxPages) {
+    const response = await axios.get(
+      `${BASE_URL}/tv/on_the_air?api_key=${API_KEY}&language=ja-JP&page=${page}`
+    );
+    const filteredTVShows = response.data.results.filter(
+      (show) => show.name && show.overview && show.poster_path
+    );
+    fetchedTVShows = [...fetchedTVShows, ...filteredTVShows].slice(0, 20);
+    page++;
+  }
+
+  return fetchedTVShows;
+};
+
+export const fetchTrendingTVShows = async () => {
+  let fetchedTVShows = [];
+  let page = 1;
+  const maxPages = 5;
+
+  while (fetchedTVShows.length < 20 && page <= maxPages) {
+    const response = await axios.get(
+      `${BASE_URL}/trending/tv/week?api_key=${API_KEY}&language=ja-JP&page=${page}`
+    );
+    const filteredTVShows = response.data.results.filter(
+      (show) => show.name && show.overview && show.poster_path
+    );
+    fetchedTVShows = [...fetchedTVShows, ...filteredTVShows].slice(0, 20);
+    page++;
+  }
+
+  return fetchedTVShows;
+};
+
+export const fetchTrendingMoviesThisWeek = async () => {
+  let fetchedMovies = [];
+  let page = 1;
+  const maxPages = 5;
+
+  while (fetchedMovies.length < 20 && page <= maxPages) {
+    const response = await axios.get(
+      `${BASE_URL}/trending/movie/week?api_key=${API_KEY}&language=ja-JP&page=${page}`
+    );
+    const filteredMovies = response.data.results.filter(
+      (movie) => movie.overview && movie.poster_path
+    );
+    fetchedMovies = [...fetchedMovies, ...filteredMovies].slice(0, 20);
+    page++;
+  }
+
+  return fetchedMovies;
+};

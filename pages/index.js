@@ -10,6 +10,10 @@ import {
   fetchDateAnimes,
   fetchAverageAnimes,
   fetchMovieImages,
+  fetchCurrentlyAiringTVShows, // 新しく追加
+  fetchLatestMovies, // 新しく追加
+  fetchTrendingTVShows, // 新しく追加
+  fetchTrendingMoviesThisWeek, // 新しく追加
 } from "../utils/TMDbApi";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -28,6 +32,10 @@ const HomePage = () => {
   const [averageAnimes, setAverageAnimes] = useState([]);
   const [dateAnimes, setDateAnimes] = useState([]);
   const [featuredMovies, setFeaturedMovies] = useState([]);
+
+  const [currentlyAiringTVShows, setCurrentlyAiringTVShows] = useState([]);
+  const [trendingTVShows, setTrendingTVShows] = useState([]);
+  const [trendingMoviesThisWeek, setTrendingMoviesThisWeek] = useState([]);
 
   const { currentUser } = useAuth();
   const router = useRouter();
@@ -70,6 +78,11 @@ const HomePage = () => {
     fetchPopularAnimes().then(setPopularAnimes);
     fetchAverageAnimes().then(setAverageAnimes);
     fetchDateAnimes().then(setDateAnimes);
+
+    fetchCurrentlyAiringTVShows().then(setCurrentlyAiringTVShows);
+    fetchTrendingTVShows().then(setTrendingTVShows);
+    fetchTrendingMoviesThisWeek().then(setTrendingMoviesThisWeek);
+
     fetchFeaturedMovies();
   }, [currentUser, router]);
 
@@ -306,6 +319,27 @@ const HomePage = () => {
         </h2>
         <Swiper className="mb-4" breakpoints={commonBreakpoints}>
           {renderAnimes(dateAnimes)}
+        </Swiper>
+
+        <h2 className="text-sm sm:text-xl my-3 font-bold tracking-wider">
+          今週のトップ映画
+        </h2>
+        <Swiper className="mb-4" breakpoints={commonBreakpoints}>
+          {renderMovies(trendingMoviesThisWeek)}
+        </Swiper>
+
+        <h2 className="text-sm sm:text-xl my-3 font-bold tracking-wider">
+          放送中のTVシリーズ
+        </h2>
+        <Swiper className="mb-4" breakpoints={commonBreakpoints}>
+          {renderAnimes(currentlyAiringTVShows)}
+        </Swiper>
+
+        <h2 className="text-sm sm:text-xl my-3 font-bold tracking-wider">
+          今話題のTV番組
+        </h2>
+        <Swiper className="mb-4" breakpoints={commonBreakpoints}>
+          {renderAnimes(trendingTVShows)}
         </Swiper>
       </div>
     </div>
